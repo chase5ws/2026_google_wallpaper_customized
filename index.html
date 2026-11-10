@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Live Wallpaper｜讓 Chrome 新分頁動起來</title>
+  <meta name="description" content="免費的 Chrome 擴充功能：把新分頁換成影片、GIF、YouTube 或程式動畫，時鐘、搜尋框、捷徑都能自由拖拽擺放。">
+  <meta property="og:title" content="Live Wallpaper｜讓 Chrome 新分頁動起來">
+  <meta property="og:description" content="影片、GIF、YouTube、內建動畫，元件自由拖拽。">
+  <meta property="og:image" content="assets/screens/aurora.webp">
+  <link rel="icon" href="extension/icons/icon128.png">
+  <link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+  <canvas id="fx" aria-hidden="true"></canvas>
+
+  <header class="nav">
+    <a class="brand" href="#top"><img src="extension/icons/icon48.png" alt="">Live Wallpaper</a>
+    <nav>
+      <a href="#features">功能</a>
+      <a href="#screens">截圖</a>
+      <a href="#install">安裝</a>
+      <a href="#faq">FAQ</a>
+      <a class="gh" href="https://github.com/chase5ws/2026_google_wallpaper_customized" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="hero-copy">
+      <p class="eyebrow">Chrome 擴充功能・免費・開源</p>
+      <h1>讓新分頁<br><span class="grad">動起來</span></h1>
+      <p class="lead">把 Chrome 新分頁換成影片、GIF、YouTube 或程式動畫。時鐘、搜尋框、常用網站都能自己拖拽擺放，左上角一點就能調整。</p>
+      <div class="cta">
+        <a class="btn primary" href="download/live-wallpaper.zip" download>下載擴充功能</a>
+        <a class="btn" href="#install">怎麼安裝？</a>
+      </div>
+      <div class="mock-clock" aria-hidden="true">
+        <div id="hero-time">--:--</div>
+        <div id="hero-date"></div>
+      </div>
+    </div>
+
+    <aside class="playground glass" aria-label="線上試玩">
+      <h2>線上試玩內建動畫</h2>
+      <p class="muted">這個頁面的背景就是擴充功能裡的動畫，點點看。</p>
+      <div id="chips" class="chips" role="radiogroup"></div>
+      <div class="grid2">
+        <label>主色 <input type="color" id="c1"></label>
+        <label>底色 <input type="color" id="c2"></label>
+      </div>
+      <label>速度 <input type="range" id="spd" min="0.1" max="3" step="0.1" value="1"></label>
+      <label>密度 <input type="range" id="den" min="0.2" max="2" step="0.1" value="1"></label>
+    </aside>
+  </section>
+
+  <main class="content">
+    <section id="features" class="section">
+      <h2 class="title">你想要的新分頁，自己做</h2>
+      <div class="features">
+        <article class="feat">
+          <div class="ico">🎞️</div>
+          <h3>上傳影片 / GIF</h3>
+          <p>mp4、webm、gif、圖片都可以，直接拖進新分頁就好。檔案存在你自己的電腦，離線也能播。</p>
+        </article>
+        <article class="feat">
+          <div class="ico">▶️</div>
+          <h3>YouTube 當桌布</h3>
+          <p>貼上 YouTube 連結，靜音、無控制列、自動循環，像真的動態桌面一樣。</p>
+        </article>
+        <article class="feat">
+          <div class="ico">✨</div>
+          <h3>6 種內建動畫</h3>
+          <p>極光、粒子網路、星空、數字雨、雨夜、海浪，顏色、速度、密度隨你調。</p>
+        </article>
+        <article class="feat">
+          <div class="ico">🧩</div>
+          <h3>元件自由拖拽</h3>
+          <p>時鐘、日期、搜尋框、捷徑、便條，拖到哪就在哪，滾輪縮放，不要的直接隱藏。</p>
+        </article>
+        <article class="feat">
+          <div class="ico">🎛️</div>
+          <h3>左上角就能調</h3>
+          <p>齒輪開設定、箭頭進編輯模式。暗化、模糊、填滿方式、播放速度一次搞定。</p>
+        </article>
+        <article class="feat">
+          <div class="ico">🔋</div>
+          <h3>省電又隱私</h3>
+          <p>切到別的分頁自動暫停。不蒐集任何資料，設定只存在你的瀏覽器裡。</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="screens" class="section">
+      <h2 class="title">實際畫面</h2>
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-shot="aurora">預設・極光</button>
+        <button class="tab" data-shot="panel">設定面板</button>
+        <button class="tab" data-shot="edit">拖拽編輯</button>
+        <button class="tab" data-shot="matrix">數字雨</button>
+      </div>
+      <figure class="browser">
+        <div class="bar"><i></i><i></i><i></i><span>新分頁</span></div>
+        <img id="shot" src="assets/screens/aurora.webp" alt="Live Wallpaper 新分頁畫面" width="1440" height="900">
+      </figure>
+      <p id="shot-cap" class="caption">安裝後打開新分頁，預設就是會流動的極光。</p>
+    </section>
+
+    <section id="install" class="section">
+      <h2 class="title">三步驟安裝</h2>
+      <ol class="steps">
+        <li>
+          <b>下載並解壓縮</b>
+          <p><a href="download/live-wallpaper.zip" download>下載 live-wallpaper.zip</a>，解壓縮到一個不會刪掉的資料夾。</p>
+        </li>
+        <li>
+          <b>開啟開發人員模式</b>
+          <p>網址列輸入 <code>chrome://extensions</code>，打開右上角「開發人員模式」。</p>
+        </li>
+        <li>
+          <b>載入擴充功能</b>
+          <p>點「載入未封裝項目」，選剛剛解壓縮的資料夾。開一個新分頁就完成了！</p>
+        </li>
+      </ol>
+      <p class="muted center">Edge、Brave 等 Chromium 瀏覽器也能用同樣方式安裝。</p>
+    </section>
+
+    <section id="faq" class="section">
+      <h2 class="title">常見問題</h2>
+      <details>
+        <summary>會很耗電、很吃效能嗎？</summary>
+        <p>切到別的分頁或縮小視窗時會自動暫停播放。如果用的是大影片，建議 1080p、幾十 MB 以內的循環影片。</p>
+      </details>
+      <details>
+        <summary>上傳的影片存在哪裡？會上傳到網路嗎？</summary>
+        <p>不會。檔案存在瀏覽器本機的 IndexedDB，只有你自己看得到，沒網路也能播。</p>
+      </details>
+      <details>
+        <summary>YouTube 影片顯示不出來？</summary>
+        <p>有些影片作者關閉了「允許嵌入」，這類影片無法當桌布。換一支影片，或下載影片後用上傳的方式。</p>
+      </details>
+      <details>
+        <summary>可以換回原本的 Chrome 新分頁嗎？</summary>
+        <p>到 <code>chrome://extensions</code> 把 Live Wallpaper 關掉或移除即可。</p>
+      </details>
+      <details>
+        <summary>設定可以搬到另一台電腦嗎？</summary>
+        <p>設定面板「資料」分頁可以匯出 / 匯入設定檔（上傳的影片檔需要另外重新上傳）。</p>
+      </details>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Live Wallpaper ・ <a href="https://github.com/chase5ws/2026_google_wallpaper_customized" target="_blank" rel="noopener">GitHub 原始碼</a> ・ 由 chase5ws 製作</p>
+  </footer>
+
+  <script type="module" src="assets/site.js"></script>
+</body>
+</html>

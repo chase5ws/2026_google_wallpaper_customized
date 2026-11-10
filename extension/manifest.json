@@ -1,0 +1,26 @@
+{
+  "manifest_version": 3,
+  "name": "Live Wallpaper 動態新分頁",
+  "short_name": "Live Wallpaper",
+  "version": "1.0.0",
+  "description": "把 Chrome 新分頁變成動態桌面：影片、GIF、網址、YouTube 或內建動畫，元件可自由拖拽擺放。",
+  "chrome_url_overrides": {
+    "newtab": "newtab.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": ["storage", "unlimitedStorage", "declarativeNetRequest", "search", "favicon"],
+  "host_permissions": [
+    "https://www.youtube.com/*",
+    "https://www.youtube-nocookie.com/*"
+  ],
+  "action": {
+    "default_title": "開啟動態新分頁"
+  },
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

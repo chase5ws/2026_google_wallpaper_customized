@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>新分頁</title>
+  <link rel="stylesheet" href="css/newtab.css">
+</head>
+<body>
+  <div id="bg" aria-hidden="true"></div>
+  <div id="dim" aria-hidden="true"></div>
+  <div class="guide guide-x" aria-hidden="true"></div>
+  <div class="guide guide-y" aria-hidden="true"></div>
+
+  <main id="widgets">
+    <section class="widget" data-id="clock">
+      <button class="widget-hide" title="隱藏">✕</button>
+      <div id="clock-text" class="clock"></div>
+    </section>
+    <section class="widget" data-id="date">
+      <button class="widget-hide" title="隱藏">✕</button>
+      <div id="date-text" class="date"></div>
+    </section>
+    <section class="widget" data-id="search">
+      <button class="widget-hide" title="隱藏">✕</button>
+      <form id="search-form" class="search glass">
+        <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M15.5 14h-.8l-.3-.3A6.5 6.5 0 1 0 9.5 16a6.5 6.5 0 0 0 4.2-1.6l.3.3v.8l5 5 1.5-1.5-5-5zm-6 0a4.5 4.5 0 1 1 0-9 4.5 4.5 0 0 1 0 9z"/></svg>
+        <input id="search-input" type="text" placeholder="搜尋或輸入網址" autocomplete="off">
+      </form>
+    </section>
+    <section class="widget" data-id="shortcuts">
+      <button class="widget-hide" title="隱藏">✕</button>
+      <div id="shortcuts-list" class="shortcuts"></div>
+    </section>
+    <section class="widget" data-id="note">
+      <button class="widget-hide" title="隱藏">✕</button>
+      <textarea id="note-text" class="note glass" spellcheck="false"></textarea>
+    </section>
+  </main>
+
+  <div id="edit-bar" class="glass">
+    <span>拖拽移動元件・滾輪縮放・✕ 隱藏</span>
+    <button id="edit-done" class="btn primary">完成</button>
+  </div>
+
+  <div id="dock">
+    <button id="btn-settings" class="icon-btn glass" title="設定">
+      <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M19.4 13a7.5 7.5 0 0 0 0-2l2.1-1.6-2-3.5-2.5 1a7.4 7.4 0 0 0-1.7-1L15 3h-4l-.4 2.9a7.4 7.4 0 0 0-1.7 1l-2.5-1-2 3.5L6.6 11a7.5 7.5 0 0 0 0 2l-2.1 1.6 2 3.5 2.5-1a7.4 7.4 0 0 0 1.7 1L11 21h4l.4-2.9a7.4 7.4 0 0 0 1.7-1l2.5 1 2-3.5-2.2-1.6zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" transform="translate(-1 0)"/></svg>
+    </button>
+    <button id="btn-edit" class="icon-btn glass" title="編輯版面">
+      <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M10 9h4V6h3l-5-5-5 5h3v3zm-1 1H6V7l-5 5 5 5v-3h3v-4zm14 2-5-5v3h-3v4h3v3l5-5zm-9 3h-4v3H7l5 5 5-5h-3v-3z"/></svg>
+    </button>
+  </div>
+
+  <div id="drop-hint">放開以加入桌布</div>
+
+  <aside id="panel" class="glass" hidden>
+    <header class="panel-head">
+      <h2>動態桌布設定</h2>
+      <button id="panel-close" class="icon-btn" title="關閉">✕</button>
+    </header>
+    <nav class="tabs" role="tablist">
+      <button class="tab active" data-tab="wallpaper">桌布</button>
+      <button class="tab" data-tab="look">外觀</button>
+      <button class="tab" data-tab="widgets">元件</button>
+      <button class="tab" data-tab="shortcuts">捷徑</button>
+      <button class="tab" data-tab="data">資料</button>
+    </nav>
+
+    <div class="tab-body" data-body="wallpaper">
+      <h3>我的桌布</h3>
+      <div id="library" class="library"></div>
+      <label class="row"><input type="checkbox" id="opt-random"> 每次開新分頁隨機挑一張</label>
+
+      <div id="effect-editor" class="card" hidden>
+        <h3>調整動畫</h3>
+        <div class="grid2">
+          <label>主色 <input type="color" id="fx-color1"></label>
+          <label>底色 <input type="color" id="fx-color2"></label>
+        </div>
+        <label>速度 <input type="range" id="fx-speed" min="0.1" max="3" step="0.1"></label>
+        <label>密度 <input type="range" id="fx-density" min="0.2" max="2" step="0.1"></label>
+      </div>
+
+      <h3>新增桌布</h3>
+      <div class="card">
+        <h4>上傳影片 / GIF / 圖片</h4>
+        <label class="drop" id="file-drop">
+          <input type="file" id="file-input" accept="video/*,image/*" multiple hidden>
+          點這裡選檔案，或直接把檔案拖進新分頁
+          <small>支援 mp4、webm、gif、png、jpg、webp…</small>
+        </label>
+      </div>
+      <div class="card">
+        <h4>影片或圖片網址</h4>
+        <div class="inline">
+          <input type="url" id="url-input" placeholder="https://…/wallpaper.mp4">
+          <select id="url-kind">
+            <option value="auto">自動判斷</option>
+            <option value="video">影片</option>
+            <option value="image">圖片 / GIF</option>
+          </select>
+        </div>
+        <button id="url-add" class="btn">加入</button>
+      </div>
+      <div class="card">
+        <h4>YouTube 影片</h4>
+        <input type="text" id="yt-input" placeholder="貼上 YouTube 連結或影片 ID">
+        <button id="yt-add" class="btn">加入</button>
+        <small class="muted">YouTube 一律靜音播放；部分影片作者禁止嵌入時會無法顯示。</small>
+      </div>
+      <div class="card">
+        <h4>內建動畫</h4>
+        <div class="inline">
+          <select id="fx-select"></select>
+          <button id="fx-add" class="btn">加入</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-body" data-body="look" hidden>
+      <label>填滿方式
+        <select id="opt-fit">
+          <option value="cover">填滿畫面（裁切）</option>
+          <option value="contain">完整顯示（留邊）</option>
+          <option value="fill">拉伸</option>
+        </select>
+      </label>
+      <label>暗化遮罩 <output id="out-dim"></output><input type="range" id="opt-dim" min="0" max="0.8" step="0.05"></label>
+      <label>模糊 <output id="out-blur"></output><input type="range" id="opt-blur" min="0" max="20" step="1"></label>
+      <label>影片播放速度 <output id="out-speed"></output><input type="range" id="opt-speed" min="0.25" max="2" step="0.25"></label>
+      <label class="row"><input type="checkbox" id="opt-muted"> 影片靜音</label>
+      <label class="row"><input type="checkbox" id="opt-pause"> 切到別的分頁時暫停（省電）</label>
+    </div>
+
+    <div class="tab-body" data-body="widgets" hidden>
+      <h3>顯示的元件</h3>
+      <div id="widget-toggles" class="toggles"></div>
+      <button id="btn-edit2" class="btn primary">進入拖拽編輯模式</button>
+      <button id="btn-reset-layout" class="btn">重設版面位置</button>
+      <h3>時鐘</h3>
+      <label class="row"><input type="checkbox" id="opt-12h"> 12 小時制</label>
+      <label class="row"><input type="checkbox" id="opt-seconds"> 顯示秒數</label>
+      <h3>搜尋引擎</h3>
+      <select id="opt-engine">
+        <option value="default">瀏覽器預設</option>
+        <option value="google">Google</option>
+        <option value="bing">Bing</option>
+        <option value="duckduckgo">DuckDuckGo</option>
+        <option value="yahoo">Yahoo 奇摩</option>
+      </select>
+    </div>
+
+    <div class="tab-body" data-body="shortcuts" hidden>
+      <div id="shortcut-editor"></div>
+      <button id="sc-add" class="btn">＋ 新增捷徑</button>
+    </div>
+
+    <div class="tab-body" data-body="data" hidden>
+      <p class="muted">匯出的設定檔包含版面、捷徑、網址與動畫桌布；上傳的檔案太大不會包含在內。</p>
+      <button id="btn-export" class="btn">匯出設定</button>
+      <label class="btn">匯入設定<input type="file" id="import-input" accept="application/json" hidden></label>
+      <button id="btn-reset" class="btn danger">全部重設</button>
+    </div>
+  </aside>
+
+  <div id="toast" role="status"></div>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
