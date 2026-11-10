@@ -21,7 +21,7 @@ Live Wallpaper 動態新分頁: a Chrome MV3 extension that turns the new tab in
 ## Where to look
 - README.md — features and project structure
 - After changing extension/, rebuild the zip with scripts/build-zip.sh
-- Recent activity → AIMemory/work.log; older history → awm_search
+- Recent activity → AIMemory/work.log; older history → memory_search
 
 ---
 Last rebuild: 2026-11-10 09:14 by claude-opus-5-5
